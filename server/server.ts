@@ -9,8 +9,13 @@ import { stripeWebhook } from "./controllers/stripeWebhook.js";
 
 const app = express();
 
+const corsOptions = {
+  origin: process.env.TRUSTED_ORIGINS?.split(",") || [],
+  credentials: true,
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.post(
   "/api/stripe",
   express.raw({ type: "application/json" }),
